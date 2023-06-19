@@ -7,7 +7,7 @@
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <div class="custom_title">
-                <p class="mb-0">Attendence Management System .</p>
+                <p class="mb-0">Assignment Management System .</p>
                 <small class="mb-0 text-maroon"
                     >AMS</small
                 
