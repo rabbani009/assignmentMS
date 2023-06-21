@@ -56,15 +56,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // public function userBelongsToCouncil()
-    // {
-    //     return $this->belongsTo('App\Models\Council', 'belongs_to', 'id');
-    // }
+    public function submittedAssignments()
+    {
+        return $this->hasMany(SubmittedAssignment::class, 'student_id', 'id');
+    }
 
-    // public function role()
-    // {
-    //     return $this->belongsTo('App\Models\Role', 'role_id', 'id');
-    // }
+    public function role()
+    {
+        return $this->belongsTo('App\Models\Role', 'role_id', 'id');
+    }
 
     public function createdBy() {
         return $this->belongsTo('App\Models\User','created_by','id') ;

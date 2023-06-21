@@ -21,6 +21,8 @@ class UsersTableSeeder extends Seeder
             'email' => 'farzad.edsoft@gmail.com',
             'password' => bcrypt('123456'),
             'user_type' => 'system',
+            'class' => '', 
+            'section' => '',
             'belongs_to' => 0,
             'role_id' => 1,
             'permissions' => 'create, read, update, delete',
@@ -34,6 +36,8 @@ class UsersTableSeeder extends Seeder
             'email' => 'teacher@gmail.com',
             'password' => bcrypt('123456'),
             'user_type' => 'teacher',
+            'class' => '',
+            'section' => '',
             'belongs_to' => 0,
             'role_id' => 1,
             'permissions' => 'create, read, update, delete',
@@ -43,10 +47,12 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Student',
+            'name' => 'Student one',
             'email' => 'student@gmail.com',
             'password' => bcrypt('123456'),
             'user_type' => 'student',
+            'class' => 'ten',
+            'section' => 'a',
             'belongs_to' => 0,
             'role_id' => 2,
             'permissions' => 'create, read, update',
@@ -54,6 +60,37 @@ class UsersTableSeeder extends Seeder
             'created_at' => Carbon::now(),
             'created_by' => 1
         ]);
+
+        DB::table('users')->insert([
+            'name' => 'Student two',
+            'email' => 'student2@gmail.com',
+            'password' => bcrypt('123456'),
+            'user_type' => 'student',
+            'class' => 'twelve',
+            'section' => 'd',
+            'belongs_to' => 0,
+            'role_id' => 2,
+            'permissions' => 'create, read, update',
+            'status' => 1,
+            'created_at' => Carbon::now(),
+            'created_by' => 1
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Student three',
+            'email' => 'student3@gmail.com',
+            'password' => bcrypt('123456'),
+            'user_type' => 'student',
+            'class' => 'twelve',
+            'section' => 'c',
+            'belongs_to' => 0,
+            'role_id' => 2,
+            'permissions' => 'create, read, update',
+            'status' => 1,
+            'created_at' => Carbon::now(),
+            'created_by' => 1
+        ]);
+
 
        
 

@@ -12,15 +12,11 @@ use App\Http\Controllers\AuthControllers\{
 use App\Http\Controllers\BackendControllers\{
     
     DashboardController,
-    OfficeController,
-    DepartmentController,
-    EmployeeController,
-    AjaxController,
-    CheckTimeController,
-    UserInfoController,
-    AttendencelogController,
-    EmployeeAttendenceController,
-    ReportController
+    AssignmentController,
+    StudentController,
+    SubmittedAssignmentController
+
+  
 
 
 };
@@ -58,36 +54,10 @@ Route::group(['namespace' => 'AuthControllers'], function () {
 
 Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function () {
     Route::get('dashboard', [DashboardController::class, 'getDashboard'])->name('get.dashboard');
-    Route::resource('office', OfficeController::class);
-    Route::resource('department', DepartmentController::class);
-    Route::resource('employee', EmployeeController::class);
+    Route::resource('assignment', AssignmentController::class);
+    Route::resource('student', StudentController::class);
 
-
-    // Route::get('/view', [UserChecktimeController::class, 'csvview'])->name('view');
-    // Route::post('/import', [UserChecktimeController::class, 'import'])->name('import');
-
-    //excel import routes.....
-    Route::get('/checktime', [CheckTimeController::class, 'index'])->name('checktime.index');
-    Route::post('/checktime', [CheckTimeController::class, 'store'])->name('checktime.store');
-
-      //excel UserInfoimport routes.....
-      Route::get('/userinfo', [UserInfoController::class, 'index'])->name('userinfo.index');
-      Route::post('/userinfo', [UserInfoController::class, 'store'])->name('userinfo.store');
-
-      //AttendenceLog
-      Route::get('/insert-attendance', [AttendencelogController::class, 'index'])->name('attendence.index');
-
-      //generate attendence
-
-      Route::get('/attendance', [EmployeeAttendenceController::class, 'index'])->name('empattendence.index');
-
-      Route::get('/attendance/show', [EmployeeAttendenceController::class, 'show'])->name('attendance.show');
-
-      //Monthly report 
-
-      Route::get('/attendance/report', [ReportController::class, 'index'])->name('report.index');
-
-      Route::post('/generated/report', [ReportController::class, 'generateReport'])->name('report.show');
+    Route::post('submit/assignment/', [SubmittedAssignmentController::class, 'submitAssignment'])->name('submit.assignment');
 
 
      
@@ -97,11 +67,7 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
 });
 
 
-Route::group(['prefix' => 'ajax', 'as' => 'ajax.'], function (){
-    Route::post('get-department-by-office', [AjaxController::class, 'getDepartmentsByOffice'])->name('get-department-by-office');
-    
 
-});
 
 
 

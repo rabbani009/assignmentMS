@@ -14,12 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name')->nullable();
             $table->string('email')->unique();
             $table->text('profile_image')->nullable();
             $table->string('password');
             $table->enum('user_type', ['system', 'teacher', 'student'])->default('system');
+            $table->string('class')->nullable();;
+            $table->string('section')->nullable();;
             $table->unsignedTinyInteger('belongs_to')->default(0)->comment('0=SYSTEM 1=TEACHER and 2=STUDENT. User belongs to council except 0');
             $table->unsignedTinyInteger('role_id');
             $table->longText('accesses')->nullable()->comment('All the named routes will be the accesses for roles');
