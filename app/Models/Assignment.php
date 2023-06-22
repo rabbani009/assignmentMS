@@ -25,6 +25,6 @@ class Assignment extends Model
     {
         return $this->hasMany(SubmittedAssignment::class, 'assignment_id', 'id');
     }
-
+   
 
 }

@@ -14,7 +14,8 @@ use App\Http\Controllers\BackendControllers\{
     DashboardController,
     AssignmentController,
     StudentController,
-    SubmittedAssignmentController
+    SubmittedAssignmentController,
+    TrackAssignmentController
 
   
 
@@ -56,11 +57,13 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
     Route::get('dashboard', [DashboardController::class, 'getDashboard'])->name('get.dashboard');
     Route::resource('assignment', AssignmentController::class);
     Route::resource('student', StudentController::class);
+    Route::resource('track', TrackAssignmentController::class);
 
     Route::post('submit/assignment/', [SubmittedAssignmentController::class, 'submitAssignment'])->name('submit.assignment');
 
 
-     
+     Route::get('/filter-class-wise-data',[AssignmentController::class,'classFilter']);
+     Route::get('/filter-subject-wise-data',[AssignmentController::class,'subjectFilter']);
 
 
 

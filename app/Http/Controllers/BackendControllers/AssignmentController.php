@@ -23,12 +23,22 @@ class AssignmentController extends Controller
         $commons['main_menu'] = 'assignment';
         $commons['current_menu'] = 'assignment_index';
 
-        $assignments = Assignment::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(4);
+        $assignments = Assignment::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(3);
+
+        $classes = Assignment::where('status', 1)
+        ->pluck('class', 'id')
+        ->unique();
+
+        $subjects = Assignment::where('status', 1)
+        ->pluck('subject', 'id')
+        ->unique();
 
         return view('backend.pages.assignment.index',
         compact(
             'commons',
-            'assignments'
+            'assignments',
+            'classes',
+            'subjects'
         )
     );
 
@@ -145,4 +155,32 @@ class AssignmentController extends Controller
     {
         //
     }
+
+    public function classFilter(Request $request)
+    {
+        $assignments = Assignment::where('status', 1)
+        ->where('class', $request->class)
+        ->with(['createdBy', 'updatedBy'])
+        ->paginate(3);
+    
+        $view = view('backend/pages/ajax/_table', compact('assignments'))->render();
+    
+        return $view;
+    }
+    
+
+
+    public function subjectFilter(Request $request){ 
+       $assignments = Assignment::where('status', 1)
+        ->where('subject', $request->subject)
+        ->with(['createdBy', 'updatedBy'])
+        ->get();
+    
+        $view = view('backend/pages/ajax/_table', compact('assignments'))->render();
+    
+        return $view;
+    }
+
+
+
 }

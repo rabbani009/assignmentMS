@@ -8,6 +8,47 @@
             </div>
         </div>
         <!-- /.card-header -->
+        <div class="card">
+            <form action="" method="post" data-bitwarden-watching="1" enctype="multipart/form-data" accept-charset="UTF-8">
+                @csrf
+                <div class="card-body">
+                    <!-- Prerequisites section -->
+                    <div class="container card ">
+                        <div class="row">
+                          
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Select Class *</label>
+                                    <select name="class" class="form-control" id="classSelect">
+                                        <option value="" selected="" disabled="">class *</option>
+                                        @foreach($classes as $id => $class)
+                                            <option value="{{ $class }}">{{ $class }}</option>
+                                        @endforeach
+                                    </select>
+                                  
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Select Subject *</label>
+                                    <select name="department" class="form-control" id="subjectSelect">
+                                        <option value="" selected="" disabled="">Subject *</option>
+                                        @foreach($subjects as $id => $subject)
+                                            <option value="{{ $subject }}">{{ $subject }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+            </form>
+        </div>
 
         <div class="card-body p-0">
             <table class="table table-responsive text-center">
@@ -32,7 +73,7 @@
                         <th class="custom_actions">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tableBody">
                @foreach($assignments as $row)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
@@ -62,16 +103,10 @@
                             
                         </td>
                        
-                        @include('backend.pages.commons.timestamps_td')
-                        
-
-            
+                        @include('backend.pages.commons.timestamps_td')                     
 
                         <td class="custom_actions">
                             <div class="btn-group">
-                                <a href="#" class="btn btn-flat btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                    <i class="far fa-eye"></i>
-                                </a>
                                 <a href="#" class="btn btn-flat btn-outline-info btn-sm" data-toggle="tooltip" title="Edit">
                                    <i class="far fa-edit"></i>
                                 </a>
@@ -94,5 +129,49 @@
         <div class="card-footer">
         {{ $assignments->withQueryString()->links('pagination::bootstrap-5') }}
         </div>
+
+
+<script>
+    document.getElementById('classSelect').addEventListener('change', () => {
+        let selectedClass = document.getElementById('classSelect').value;
+        $.ajax({
+            type: 'get',
+            url: 'filter-class-wise-data',
+            data: {
+                class: selectedClass
+            },
+            success: function(res) {
+                $('#tableBody').html(res);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+
+    document.getElementById('subjectSelect').addEventListener('change', function() {
+        let selectedSubject = this.value;
+        $.ajax({
+            type: 'get',
+            url: 'filter-subject-wise-data',
+            data: {
+                subject: selectedSubject
+            },
+            success: function(res) {
+                // console.log(res);
+                $('#tableBody').html(res);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+
+
+</script>
+
+
+
+
     </div>
 </section>
